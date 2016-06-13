@@ -1,0 +1,11 @@
+<div class="container">
+  <h1>Books controller</h1>
+  <%if params[:category]%>
+    Search by <%=params[:category]%>
+  <%end%>
+  <%@books.each do |b|%>
+    <h3><%=link_to b.title, book_path(b)%></h3>
+  <%end%>
+
+  <%=link_to "Add book", new_book_path%>
+</div>
