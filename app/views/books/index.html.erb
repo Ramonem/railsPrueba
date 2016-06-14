@@ -1,11 +1,23 @@
-<div class="container">
-  <h1>Books controller</h1>
-  <%if params[:category]%>
-    Search by <%=params[:category]%>
-  <%end%>
-  <%@books.each do |b|%>
-    <h3><%=link_to b.title, book_path(b)%></h3>
-  <%end%>
 
-  <%=link_to "Add book", new_book_path%>
+<h1>Books controller</h1>
+<%if params[:category]%>
+Search by <%=params[:category]%>
+<%end%>
+<%if @books.count==0%>
+<p>
+  There are not books in search query
+</p>
+<%else%>
+<div class="row">
+  <%@books.each do |b|%>
+  <div class="col-md-3">
+    <a href="/books/<%=b.id%>">
+      <%=image_tag b.book_img.url(:book_index), class: "book"%> <!--book_index corresponde al tamaño de la imagen-->
+    </a>
+  </div>
+  <!--<h3><%=link_to b.title, book_path(b)%></h3>-->
+  <%end%>
 </div>
+<%end%>
+
+<%=link_to "Add book", new_book_path%>

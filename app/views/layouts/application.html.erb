@@ -27,12 +27,15 @@
             Categories <span class="caret"></span></a>
             <ul class="dropdown-menu">
               <%Category.all.each do |c|%>
-                <li><%=link_to c.name, books_path(category: c.name), class: "link"%></li>
+                <li class="<%= 'active' if params[:category] == c.name%>">
+                  <%=link_to c.name, books_path(category: c.name), class: "link"%>
+                </li>
               <%end%>
             </ul>
         </li>
         <%if user_signed_in?%>
           <li><%=link_to "Add Book", new_book_path%></li>
+          <li><a>Welcome <%= current_user.email %></a></li>
         <%end%>
       </ul>
     </div>
@@ -40,8 +43,9 @@
 
   <p class="notice"><%= notice %></p>
   <p class="alert"><%= alert %></p>
-
-<%= yield %>
+  <div class="container">
+    <%= yield %>
+  </div>
 
 </body>
 </html>
