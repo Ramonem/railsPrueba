@@ -1,5 +1,7 @@
 class BooksController < ApplicationController
   before_action :authenticate_user!, except: [:show, :index]
+  #only es solo para los dichos incluidos
+  #except es para los dichos no esten incluidos
   before_action :find_book, only: [:show, :edit, :destroy, :update]
 
   def index
@@ -12,7 +14,11 @@ class BooksController < ApplicationController
   end
 
   def show
-    #@book = Book.find(params[:id])
+    if @book.reviews.blank?
+      @average_review = 0
+    else
+      @average_review = @book.reviews.average(:rating).round(2)
+    end
   end
 
   def new
